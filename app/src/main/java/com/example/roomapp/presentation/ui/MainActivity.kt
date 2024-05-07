@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.roomapp.R
 import com.example.roomapp.domain.models.Hero
 import com.example.roomapp.presentation.viewmodels.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var button: Button
     private lateinit var heroesRecyclerView: RecyclerView
