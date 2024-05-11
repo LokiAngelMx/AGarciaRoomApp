@@ -11,6 +11,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.roomapp.R
+import com.example.roomapp.domain.adapters.HeroAdapter
 import com.example.roomapp.domain.models.Hero
 import com.example.roomapp.presentation.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,9 +19,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private lateinit var button: Button
-    private lateinit var heroesRecyclerView: RecyclerView
-    private var heroes = mutableListOf<Hero>()
+    private lateinit var heroRecyclerView: RecyclerView
     private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +33,9 @@ class MainActivity : AppCompatActivity() {
             repeatOnLifecycle(Lifecycle.State.STARTED){
                 mainViewModel.state.collect{
                     Log.i("Heroes", it.heroes.toString())
+                    heroRecyclerView = findViewById(R.id.rvHeroes)
+                    heroRecyclerView.adapter = HeroAdapter(it.heroes)
+                    heroRecyclerView.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
                 }
             }
         }
